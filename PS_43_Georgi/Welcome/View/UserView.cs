@@ -7,19 +7,27 @@ using Welcome.ViewModel;
 
 namespace Welcome.View
 {
-    class UserView
+    public class UserView
     {
         private UserViewModel _viewModel;
-
-        UserView(UserViewModel viewModel)
-        {
-            _viewModel = viewModel;
+        public UserView(UserViewModel viewModel) {
+            _viewModel = viewModel;   
         }
-        public UserViewModel ViewModel { get { return _viewModel; } }
 
         public void Display()
         {
-            return "Welcome\n User:"+ 
+            Console.WriteLine("Welcome");
+            Console.WriteLine($"User: {_viewModel.Name}");
+            Console.WriteLine($"Role: {_viewModel.Role}");
+        }
+        public void DisplayEmail()
+        {
+            Console.WriteLine($"Email: {_viewModel.Email}");
+        }
+        public void DisplayError()
+        {
+            throw new Exception("ТЕКСТ НА ГРЕШКАТА");
         }
     }
+
 }

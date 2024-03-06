@@ -8,17 +8,40 @@ using Welcome.Others;
 
 namespace Welcome.ViewModel
 {
-    class UserViewModel
+    public class UserViewModel
     {
         private User _user;
 
-        UserViewModel(User user)
+        public UserViewModel(User user)
         {
             _user = user;
         }
-        public User User { get { return _user; } }
-        public string Name {get; set; }
-        public string Password { get;set; }
-        public UserRolesEnum Role { get; set; }
+        public string Name
+        {
+            get { return _user.Name; }
+            set { _user.Name = value; }
+        }
+
+        public string Password
+        {
+            get { return _user.Password; }
+            set { _user.Password = value; }
+        }
+        public UserRolesEnum Role
+        {
+            get { return _user.Role; }
+            set { _user.Role = value; }
+        }
+
+        public string Email
+        {
+            get { return _user.Email; } 
+            set { _user.Email = value; }    
+        }
+        public int Id
+        {
+            get { return _user.Id; }
+            set { _user.Id = value; }
+        }
     }
 }

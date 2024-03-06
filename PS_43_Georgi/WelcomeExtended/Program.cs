@@ -2,27 +2,23 @@
 using Welcome.Others;
 using Welcome.View;
 using Welcome.ViewModel;
-
-namespace Welcome
+using WelcomeExtended.Data;
+using WelcomeExtended.Others;
+namespace WelcomeExtended
 {
     class Program
     {
         static void Main(string[] args)
         {
-
-
+            UserData userData = new UserData();
             User user = new User
             {
                 Name = "Georgi",
                 Password = "121221111",
-                Role = UserRolesEnum.STUDENT,
-                Email = "gbozhinov17@gmail.com"
+                Role = UserRolesEnum.STUDENT
             };
 
-            UserViewModel userViewModel = new UserViewModel(user);
-            UserView userView = new UserView(userViewModel);
-            userView.Display();
-            userView.DisplayEmail();
+            UserData.AddUser(user);
 
         }
     }

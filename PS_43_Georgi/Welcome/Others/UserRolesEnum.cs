@@ -1,11 +1,12 @@
-﻿namespace Welcome.Others;
-
-public enum UserRolesEnum
+﻿namespace Welcome.Others
 {
-    ANONYMOUS,
-    ADMIN,
-    INSPECTOR,
-    PROFESSOR,
-    STUDENT
-  
+    public enum UserRolesEnum
+    {
+        ANONYMOUS,
+        ADMIN,
+        INSPECTOR,
+        PROFESSOR,
+        STUDENT
+    }
+    
 }
