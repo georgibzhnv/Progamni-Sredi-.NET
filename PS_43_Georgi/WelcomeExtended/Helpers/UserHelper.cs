@@ -14,7 +14,7 @@ namespace WelcomeExtended.Helpers
 
             return $"Username: {user.Name}, User Role: {user.Role.ToString()}";
         }
-        public static string ValidateCredentials(string name, string password)
+        public static string ValidateCredentials(string name, string password,UserData userData)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -24,7 +24,7 @@ namespace WelcomeExtended.Helpers
             {
                 return "The password cannot be empty.";
             }
-            bool isValidUser = UserData.ValidateUser(name, password);
+            bool isValidUser = userData.ValidateUser(name, password);
             if (!isValidUser) {
                 return "Invalid username or password.";
             }

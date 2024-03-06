@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Welcome.Model;
+using Welcome.Others;
 
 namespace WelcomeExtended.Data
 {
@@ -52,6 +53,29 @@ namespace WelcomeExtended.Data
                       where user.Name == name && user.Password == password
                       select user.Id;
             return ret != null ? true: false;
+        }
+
+        public User GetUser(string username,string password)
+        {
+            return _users.FirstOrDefault(user => user.Name == username && user.Password == password);
+        }
+
+        public void SetActive(string username,string date)
+        {
+            var user = _users.FirstOrDefault(u=>u.Name==username);
+            if (user != null)
+            {
+                user.date = "Expires";
+            }
+        }
+
+        public void AssignUserRole(string username,UserRolesEnum role)
+        {
+            var user = _users.FirstOrDefault(u => u.Name == username);
+            if (user != null)
+            {
+                user.Role = role;
+            }
         }
     }
 }

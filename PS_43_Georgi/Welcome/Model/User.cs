@@ -19,6 +19,7 @@ namespace Welcome.Model
             get { return Decrypt(_encryptedPassword); } 
             set { _encryptedPassword =Encrypt (value); }
         }
+        public string date { get; set; }  
         public int Id { get; set; }
         public UserRolesEnum Role { get; set; }
 
