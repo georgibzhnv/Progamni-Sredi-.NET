@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
+        xmlns:local2="clr-namespace:UI.Componets"
+        
         mc:Ignorable="d"
-        Title="List of all students" Height="450" Width="800" WindowStartupLocation="CenterScreen" xmlns:local2="clr-namespace:UI.Components">
+        Title="List of all Students" WindowStartupLocation="CenterScreen" Height="450" Width="800">
+    
+
     <Grid>
-        <local2:StudentsList x:Name="studentsList" Padding="2"></local2:StudentsList>
+        <local2:StudentList x:Name="studetsList" Padding="2"/>
+        <Button Content="Logs" HorizontalAlignment="Left" Margin="716,358,0,0" VerticalAlignment="Top" Click="ShowLogs_Click"/>
     </Grid>
+    
+
+
 </Window>

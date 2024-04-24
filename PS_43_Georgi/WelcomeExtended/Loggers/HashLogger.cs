@@ -10,31 +10,31 @@ namespace WelcomeExtended.Loggers
 {
     public class HashLogger : ILogger
     {
-        private static readonly string logFilePath = "log.txt";
         private readonly ConcurrentDictionary<int, string> _logMessages;
         private readonly string _name;
 
-        public HashLogger(string name)
+        public HashLogger( string name)
         {
+            
             _name = name;
             _logMessages = new ConcurrentDictionary<int, string>();
         }
 
-        public IDisposable? BeginScope<Tstate>(Tstate state) where Tstate : notnull
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
+            
             return null;
         }
 
         public bool IsEnabled(LogLevel logLevel)
         {
-
+            
             return true;
         }
 
-        public void Log<Tstate>(LogLevel logLevel, EventId eventId, Tstate state, Exception? exception, Func<Tstate, Exception?, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
             var message = formatter(state, exception);
-            _logMessages[eventId.Id] = message;
             switch (logLevel)
             {
                 case LogLevel.Critical:
@@ -50,58 +50,43 @@ namespace WelcomeExtended.Loggers
                     Console.ForegroundColor = ConsoleColor.White;
                     break;
             }
-            if (_logMessages.TryGetValue(eventId.Id, out var logMessage))
-            {
-                Console.WriteLine("- LOGGER -");
-                var messageToBeLogged = new StringBuilder();
-                messageToBeLogged.Append($"[{logLevel}]");
-                messageToBeLogged.AppendFormat(" [{0}] - Event ID: {1}, Message: {2}", _name, eventId.Id, logMessage);
-                Console.WriteLine(messageToBeLogged);
-                Console.WriteLine("- LOGGER -");
-            }
-
+            Console.WriteLine("- LOGGER -");
+            var messageToBeLogged = new StringBuilder();
+            messageToBeLogged.Append($"[{logLevel}]");
+            messageToBeLogged.AppendFormat(" [{0}]", _name);
+            Console.WriteLine(messageToBeLogged);
+            Console.WriteLine($"{formatter(state, exception)}");
+            Console.WriteLine("- LOGGER -");
             Console.ResetColor();
-        }
-        public bool RemoveLogMessage(int eventId)
-        {
-            return _logMessages.TryRemove(eventId, out _);
-        }
+            _logMessages[eventId.Id] = message;
 
+
+        }
         public void PrintAllMessages()
         {
-            Console.WriteLine("- ALL LOGGER MESSAGES -");
-            foreach (var logMessage in _logMessages)
+            foreach (var message in _logMessages)
             {
-                Console.WriteLine($"Event ID: {logMessage.Key}, Message: {logMessage.Value}");
+                Console.WriteLine($"Event ID: {message.Key}, Message: {message.Value}");
             }
-            Console.WriteLine("- END OF LOGGER MESSAGES -");
         }
 
-        public static void LogSuccess(string username)
+        public void PrintMessageById(int eventId)
         {
-            var logMessage = $"Успешен вход: {username} на {DateTime.Now}";
-            WriteToLogFile(logMessage);
+            if (_logMessages.TryGetValue(eventId, out var message))
+            {
+                Console.WriteLine(message);
+            }
+            else
+            {
+                Console.WriteLine("Message not found.");
+            }
         }
 
-        public static void LogFailure(string username, string errorMessage)
+        public void DeleteMessageById(int eventId)
         {
-            var logMessage = $"Неуспешен вход: {username} на {DateTime.Now}, Грешка: {errorMessage}";
-            WriteToLogFile(logMessage);
-        }
-
-        private static void WriteToLogFile(string message)
-        {
-            try
-            {
-                using (StreamWriter streamWriter = new StreamWriter(logFilePath, true))
-                {
-                    streamWriter.WriteLine(message);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Грешка при записване в лог файла: {ex.Message}");
-            }
+            _logMessages.TryRemove(eventId, out _);
         }
     }
+    
 }
+

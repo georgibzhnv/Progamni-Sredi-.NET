@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayers.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,25 +13,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UI.Windows;
 
-namespace UI
+namespace UI.Componets
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StudentList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StudentList : UserControl
     {
-        public MainWindow()
+        public StudentList()
         {
             InitializeComponent();
+            using (var context = new DatabaseContext())
+            {
+                var records = context.Users.ToList();
+                students.DataContext = records;
+            }
         }
-
-        private void ShowLogs_Click(object sender, RoutedEventArgs e)
-        {
-            Logs logsWindow = new Logs();
-            logsWindow.Show();
-        }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Welcome.Model;
@@ -8,40 +9,37 @@ using Welcome.Others;
 
 namespace Welcome.ViewModel
 {
+
     public class UserViewModel
     {
-        private User _user;
+        private readonly User _user;
+        public UserViewModel(User user) { _user = user; }
 
-        public UserViewModel(User user)
+        public string Names
         {
-            _user = user;
+            get { return _user.Names; }
+            set { _user.Names = value; }
         }
-        public string Name
-        {
-            get { return _user.Name; }
-            set { _user.Name = value; }
-        }
-
         public string Password
         {
-            get { return _user.Password; }
-            set { _user.Password = value; }
+            get { return PasswordHelper.Decrypt(_user.Password); }
+            set { _user.Password = PasswordHelper.Encrypt(value); }
         }
         public UserRolesEnum Role
         {
             get { return _user.Role; }
             set { _user.Role = value; }
         }
-
         public string Email
         {
-            get { return _user.Email; } 
-            set { _user.Email = value; }    
+            get { return _user.Email; }
+            set { _user.Email = value; }
         }
-        public int Id
+        public string Fac_Num
         {
-            get { return _user.Id; }
-            set { _user.Id = value; }
+            get { return _user.Fac_Num; }
+            set { _user.Fac_Num = value; }
         }
+
     }
 }

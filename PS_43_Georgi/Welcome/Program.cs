@@ -5,25 +5,28 @@ using Welcome.ViewModel;
 
 namespace Welcome
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
+            User user = new User()
+            { 
+                Names = "Student1",
+                Password = "password",
+
+            } ;
+            
+            UserViewModel viewModel = new UserViewModel(user);
+            Console.WriteLine(user.Password); Console.WriteLine(viewModel.Password);
+            viewModel.Password = "121232AAAAAAA";
+            Console.WriteLine(viewModel.Password);
+            UserView view = new UserView(viewModel);
+            view.Display();
 
 
-            User user = new User
-            {
-                Name = "Georgi",
-                Password = "121221111",
-                Role = UserRolesEnum.STUDENT,
-                Email = "gbozhinov17@gmail.com"
-            };
 
-            UserViewModel userViewModel = new UserViewModel(user);
-            UserView userView = new UserView(userViewModel);
-            userView.Display();
-            userView.DisplayEmail();
 
         }
+
     }
 }

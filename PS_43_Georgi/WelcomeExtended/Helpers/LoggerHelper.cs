@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WelcomeExtended.Loggers;
 
 namespace WelcomeExtended.Helpers
 {
     public static class LoggerHelper
     {
-        public static ILogger GetLogger(string categoryName)
+        public static ILogger GetLogger(string CategoryName)
         {
             var loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new Loggers.LoggerProvider());
+            loggerFactory.AddProvider(new LoggerProvider());
 
-            return loggerFactory.CreateLogger(categoryName);
-
+            return loggerFactory.CreateLogger(CategoryName);
         }
     }
 }
